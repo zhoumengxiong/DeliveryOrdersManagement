@@ -126,12 +126,12 @@
                 <td>{{ movie.ChipSolution }}</td>
                 <td>{{ movie.Supplement }}</td>
                 {% if current_user.is_authenticated %}
-                <td><span><a class="btn btn-primary btn-sm"
+                <td><span><a class="google orange"
                             href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a></span>&nbsp;&nbsp;&nbsp;
                             <span>
                     <span>
                         <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.Id) }}">
-                            <input type="submit" name="delete" value="删除" onclick="return confirm('你确认吗?')">
+                            <input type="submit" class="google red" name="delete" value="删除" onclick="return confirm('你确认删除吗?')">
                         </form>
                     </span>
                 </td>
