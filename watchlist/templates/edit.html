@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5>修改记录</h5>
+<form method="post">
+    <div class="form-group">
+        <label for="WoNumbe">派工单号</label>
+        <input type="text" class="form-control form-control-sm" id="WoNumber" name="WoNumber" autocomplete="off"
+            required value="{{movie.WoNumber}}">
+    </div>
+    <div class="form-group">
+        <label for="ApprovalNumber">审批编号</label>
+        <input type="text" class="form-control form-control-sm" id="ApprovalNumber" name="ApprovalNumber" required
+            autocomplete="off" value="{{movie.ApprovalNumber}}">
+    </div>
+    <div class="form-group">
+        <label for="ProductClass">产品型态</label>
+        <select class="form-control form-control-sm" name="ProductClass" id="ProductClass" required
+            value="{{movie.ProductClass}}">
+            <option>单相表</option>
+            <option>13版三相表</option>
+            <option>13版集中器</option>
+            <option>I型采集器</option>
+            <option>II型采集器</option>
+            <option>抄控器</option>
+            <option>09版三相表</option>
+            <option>09版集中器</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="InQuantity">产出数量</label>
+        <input type="number" class="form-control form-control-sm" id="InQuantity" name="InQuantity" autocomplete="off"
+            required value="{{movie.InQuantity}}">
+    </div>
+    <div class="form-group">
+        <label for="InDate">入库日期</label>
+        <input type="date" class="form-control form-control-sm" id="InDate" name="InDate" autocomplete="off" required
+            value="{{movie.InDate}}">
+    </div>
+    <div class="form-group">
+        <label for="InOperator">入库员工</label>
+        <input type="text" class="form-control form-control-sm" id="InOperator" name="InOperator" autocomplete="off"
+            required value="{{movie.InOperator}}">
+    </div>
+    <div class="form-group">
+        <label for="ReceiveOperator">接收员工</label>
+        <input type="text" class="form-control form-control-sm" id="ReceiveOperator" name="ReceiveOperator"
+            autocomplete="off" required value="{{movie.ReceiveOperator}}">
+    </div>
+    <div class="form-group">
+        <label for="CurrentNode">当前节点</label>
+        <select class="form-control form-control-sm" name="CurrentNode" id="CurrentNode" required
+            value="{{movie.CurrentNode}}">
+            <option>备料</option>
+            <option>改造</option>
+            <option>升级</option>
+            <option>刻印</option>
+            <option>测试</option>
+            <option>包装</option>
+            <option>报检</option>
+            <option>入库</option>
+            <option>返工</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="ChipSolution">芯片方案</label>
+        <select class="form-control form-control-sm" name="ChipSolution" id="ChipSolution" required
+            value="{{movie.ChipSolution}}">
+            <option>3105</option>
+            <option>3911</option>
+            <option>STKS_CCV1.31</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Supplement">补充说明</label>
+        <input type="text" class="form-control form-control-sm" id="Supplement" name="Supplement" autocomplete="off"
+            required value="{{movie.Supplement}}">
+        <br>
+        <button type="submit" class="btn btn-primary">提交</button>
+</form>
+<!--<form method="post" class="form-group">
+    派工单号 <input type="text" name="WoNumber" autocomplete="off" required value="{{movie.WoNumber}}">
+    审批编号 <input type="text" name="ApprovalNumber" autocomplete="off" value="{{movie.ApprovalNumber}}">
+    产品型态 <input type="text" name="ProductClass" autocomplete="off" required value="{{movie.ProductClass}}">
+    产出数量 <input type="text" name="InQuantity" autocomplete="off" required value="{{movie.InQuantity}}">
+    入库日期 <input type="text" name="InDate" autocomplete="off" required value="{{movie.InDate}}">
+    入库员工 <input type="text" name="InOperator" autocomplete="off" required value="{{movie.InOperator}}">
+    接收员工 <input type="text" name="ReceiveOperator" autocomplete="off" required value="{{movie.ReceiveOperator}}">
+    当前节点 <input type="text" name="CurrentNode" autocomplete="off" required value="{{movie.CurrentNode}}">
+    芯片方案 <input type="text" name="ChipSolution" autocomplete="off" required value="{{movie.ChipSolution}}">
+    补充说明 <input type="text" name="Supplement" autocomplete="off" value="{{movie.Supplement}}">
+    <br>
+    <input class="btn btn-primary" type="submit" name="submit" value="更新">
+</form>-->
+{% endblock %}

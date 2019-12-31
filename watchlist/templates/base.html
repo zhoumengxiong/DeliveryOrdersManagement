@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小批量订单制造信息管理系统</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+    {% endblock %}
+</head>
+
+<body>
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{ message }}</div>
+    {% endfor %}
+    <h4>
+        <!--<img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">-->
+        小批量订单制造信息管理系统
+    </h4>
+    {% from 'bootstrap/nav.html' import render_breadcrumb_item %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {{ render_breadcrumb_item('index', '主页') }}
+            {% if current_user.is_authenticated %}
+            {{ render_breadcrumb_item('settings', '设置') }}
+            {{ render_breadcrumb_item('logout', '登出') }}
+            {% else %}
+            {{ render_breadcrumb_item('login', '登入') }}
+            {% endif %}
+        </ol>
+    </nav>
+
+    <!--{% from 'bootstrap/nav.html' import render_nav_item %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-nav mr-auto">
+            {{ render_nav_item('index', '主页') }}
+            {% if current_user.is_authenticated %}
+            {{ render_nav_item('settings', '设置') }}
+            {{ render_nav_item('logout', '登出') }}
+            {% else %}
+            {{ render_nav_item('login', '登入') }}
+            {% endif %}
+        </div>
+    </nav>-->
+    <!--<nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>-->
+    {% block content %}{% endblock %}
+    <footer>
+        <small>&copy; 2019 <a href="{{url_for('index')}}">Dream from SGD</a></small>
+    </footer>
+    {{ bootstrap.load_js() }}
+</body>
+
+</html>
