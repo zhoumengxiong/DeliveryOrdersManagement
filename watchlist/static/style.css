@@ -156,8 +156,8 @@ tr:nth-child(odd) td {
 }
 */
 
-h4 {
-    margin: 10px 35% 10px 35%;
+.header {
+    margin-top: 10px;
 }
 
 .table {

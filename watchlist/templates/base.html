@@ -16,10 +16,11 @@
     {% for message in get_flashed_messages() %}
     <div class="alert">{{ message }}</div>
     {% endfor %}
-    <h4>
-        <!--<img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">-->
-        小批量订单制造信息管理系统
-    </h4>
+    <div class="header">
+        <h3 class="text-center font-weight-bold">
+            <!--<img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">-->
+            小批量订单制造信息管理系统</h3>
+    </div>
     {% from 'bootstrap/nav.html' import render_breadcrumb_item %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
