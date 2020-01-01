@@ -90,9 +90,15 @@
         <label for="Supplement">补充说明</label>
         <input type="text" class="form-control form-control-sm" id="Supplement" name="Supplement" autocomplete="off">
         <br>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit" class="btn btn-primary">新增</button>
 </form>
 {% endif %}
+<div class="query">
+    <form class="form-inline" action="{{url_for('search')}}">
+        <input type="text" name="q" class="form-control" placeholder="派工单号，审批单号，日期" required> &nbsp;&nbsp;&nbsp;<button
+            class="btn btn-primary" type="submit">查找</button>
+    </form>
+</div>
 <div>
     <table class="table table-striped table-sm">
         <thead class="thead-dark">
@@ -128,12 +134,13 @@
                 {% if current_user.is_authenticated %}
                 <td><span><a class="google orange"
                             href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a></span>&nbsp;&nbsp;&nbsp;
-                            <span>
                     <span>
-                        <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.Id) }}">
-                            <input type="submit" class="google red" name="delete" value="删除" onclick="return confirm('你确认删除吗?')">
-                        </form>
-                    </span>
+                        <span>
+                            <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.Id) }}">
+                                <input type="submit" class="google red" name="delete" value="删除"
+                                    onclick="return confirm('你确认删除吗?')">
+                            </form>
+                        </span>
                 </td>
                 {% endif %}
             </tr>

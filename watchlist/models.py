@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import DateField, IntegerField, SelectField, StringField, SubmitField, Form
 from wtforms.validators import DataRequired, InputRequired
 from watchlist import db
+from watchlist import whooshee
 
 
 class User(db.Model, UserMixin):
@@ -19,6 +20,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
+@whooshee.register_model('WoNumber', 'ApprovalNumber', 'InDate')
 class Wos_flask(db.Model):
     __tablename__ = 'wos_flask'
     Id = db.Column(db.Integer, primary_key=True)
@@ -48,7 +50,8 @@ class wo_form(Form):
     ReceiveOperator = StringField(
         '接收员工：', validators=[DataRequired, InputRequired])
     CurrentNode = SelectField('当前节点：', choices=[('备料', '备料'), ('改造', '改造'), ('升级', '升级'), (
-        '刻印', '刻印'), ('测试', '测试'), ('包装', '包装'), ('报检', '报检'), ('入库', '入库'), ('返工', '返工')],validators=[DataRequired, InputRequired])
-    ChipSolution=SelectField('芯片方案：',choices=[('3105','3105'),('3911','3911'),('STKS_CCV1.31','STKS_CCV1.31')],validators=[DataRequired, InputRequired])
-    Supplement=StringField('补充说明：',validators=[DataRequired, InputRequired])
-    Add=SubmitField('新增')
+        '刻印', '刻印'), ('测试', '测试'), ('包装', '包装'), ('报检', '报检'), ('入库', '入库'), ('返工', '返工')], validators=[DataRequired, InputRequired])
+    ChipSolution = SelectField('芯片方案：', choices=[('3105', '3105'), ('3911', '3911'), (
+        'STKS_CCV1.31', 'STKS_CCV1.31')], validators=[DataRequired, InputRequired])
+    Supplement = StringField('补充说明：', validators=[DataRequired, InputRequired])
+    Add = SubmitField('新增')
