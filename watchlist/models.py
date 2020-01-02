@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
-@whooshee.register_model('WoNumber', 'ApprovalNumber', 'InDate')
+@whooshee.register_model('WoNumber', 'ApprovalNumber', 'InDate','CurrentNode')
 class Wos_flask(db.Model):
     __tablename__ = 'wos_flask'
     Id = db.Column(db.Integer, primary_key=True)
