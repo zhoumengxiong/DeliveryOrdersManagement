@@ -3,7 +3,8 @@ from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
-from watchlist.models import User, Wos_flask,wo_form
+from watchlist.models import User, Wos_flask, wo_form
+from sqlalchemy import or_, and_
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,8 +41,8 @@ def index():
     pagination = Wos_flask.query.order_by(
         Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
-    form=wo_form()
-    return render_template('index.html', movies=movies,pagination=pagination,form=form)
+    form = wo_form()
+    return render_template('index.html', movies=movies, pagination=pagination, form=form)
 
 
 @app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
@@ -137,17 +138,13 @@ def logout():
 
 @app.route('/search')
 def search():
-    if request.method == 'POST':
-        name = request.form['name']
-
-        if not name or len(name) > 20:
-            flash('Invalid input.')
-            return redirect(url_for('settings'))
-
-        user = User.query.first()
-        user.name = name
-        db.session.commit()
-        flash('Settings updated.')
-        return redirect(url_for('index'))
-
-    return render_template('search.html')
+    page = request.args.get('page', 1, type=int)
+    per_page = 20
+    qu = request.args.get('q')
+    pagination = Wos_flask.query.filter(
+        or_(
+            Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(
+                qu), Wos_flask.InDate.contains(qu)
+        )).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
+    movies = pagination.items
+    return render_template('search.html', movies=movies, pagination=pagination, keyword=qu)
