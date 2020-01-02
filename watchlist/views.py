@@ -141,12 +141,11 @@ def search():
     page = request.args.get('page', 1, type=int)
     per_page = 20
     qu = request.args.get('q')
-    pagination = Wos_flask.query.whooshee_search(qu). order_by(
-        Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
-    """pagination = Wos_flask.query.filter(
+    """pagination = Wos_flask.query.whooshee_search(qu).paginate(page, per_page=per_page)"""
+    pagination = Wos_flask.query.filter(
         or_(
             Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(
-                qu), Wos_flask.InDate.contains(qu)
-        )).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)"""
+                qu), Wos_flask.InDate.contains(qu),Wos_flask.CurrentNode.contains(qu)
+        )).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
     return render_template('search.html', movies=movies, pagination=pagination, keyword=qu)
