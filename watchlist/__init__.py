@@ -12,6 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:Dream123$@localhost:3306/raw_data"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['WHOOSHEE_MIN_STRING_LEN'] = 1
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -36,4 +37,5 @@ def inject_user():
     user = User.query.first()
     return dict(user=user)
 
+# from watchlist import views, errors, commands只能放在最后一行
 from watchlist import views, errors, commands
