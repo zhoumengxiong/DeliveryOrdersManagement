@@ -173,7 +173,10 @@ tr:nth-child(odd) td {
 }
 
 .query {
-    margin-top: 12px;
+    margin: 0px auto 0px auto;
+    text-align:right;
+    float:right;
+    margin-bottom: 14px;
 }
 
 /* Normal white .google as seen on Google.com*/
