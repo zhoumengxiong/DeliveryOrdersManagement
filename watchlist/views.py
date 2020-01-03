@@ -146,3 +146,19 @@ def search():
         or_(Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(qu), Wos_flask.InDate.contains(qu))).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
     return render_template('search.html', movies=movies, pagination=pagination, keyword=qu)
+
+
+@app.route('/summary_qty', methods=['GET', 'POST'])
+@login_required
+def summary_qty():
+    qty_orders=0
+    qty_modules=0
+    if request.method == 'POST':
+        start_date = str(request.form['start_date'])
+        end_date = str(request.form['end_date'])
+        query_by_date = Wos_flask.query.filter(
+            and_(Wos_flask.InDate >= start_date, Wos_flask.InDate <= end_date)).all()
+        qty_modules = sum([x.InQuantity for x in query_by_date])
+        qty_orders = len(set([y.WoNumber for y in query_by_date]))
+    return render_template('summary_qty.html', qty_orders=qty_orders,
+                           qty_modules=qty_modules)
