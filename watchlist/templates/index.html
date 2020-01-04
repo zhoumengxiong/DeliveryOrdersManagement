@@ -24,7 +24,7 @@
 <form method="post">
     <div class="form-group">
         <label for="WoNumbe">派工单号</label>
-        <input type="text" class="form-control form-control-sm" id="WoNumber" name="WoNumber" autocomplete="off"
+        <input type="text" class="form-control form-control-sm" placeholder="X2020开头" id="WoNumber" name="WoNumber" autocomplete="off"
             required>
     </div>
     <div class="form-group">
@@ -47,12 +47,12 @@
     </div>
     <div class="form-group">
         <label for="InQuantity">产出数量</label>
-        <input type="number" class="form-control form-control-sm" id="InQuantity" name="InQuantity" autocomplete="off"
+        <input type="number" class="form-control form-control-sm" placeholder="对应派工单需求数量" id="InQuantity" name="InQuantity" autocomplete="off"
             required>
     </div>
     <div class="form-group">
         <label for="InDate">入库日期</label>
-        <input type="date" class="form-control form-control-sm" id="InDate" name="InDate" autocomplete="off" required>
+        <input type="date" class="form-control form-control-sm" id="InDate" name="InDate" autocomplete="off" required value="{{date_today}}">
     </div>
     <div class="form-group">
         <label for="InOperator">入库员工</label>
@@ -88,7 +88,7 @@
     </div>
     <div class="form-group">
         <label for="Supplement">补充说明</label>
-        <input type="text" class="form-control form-control-sm" id="Supplement" name="Supplement" autocomplete="off">
+        <input type="text" class="form-control form-control-sm" placeholder="根据实际情况选填" id="Supplement" name="Supplement" autocomplete="off">
         <br>
         <button type="submit" class="btn btn-primary">新增</button>
 </form>
