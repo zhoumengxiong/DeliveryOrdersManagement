@@ -65,10 +65,16 @@ def edit(movie_id):
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
             flash('Invalid input.')
             return redirect(url_for('index'))
-
-        movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass, InQuantity=InQuantity, InDate=InDate,
-                          InOperator=InOperator, ReceiveOperator=ReceiveOperator, CurrentNode=CurrentNode, ChipSolution=ChipSolution, Supplement=Supplement)
-        db.session.add(movie)
+        movie.WoNumber=WoNumber
+        movie.ApprovalNumber=ApprovalNumber
+        movie.ProductClass=ProductClass
+        movie.InQuantity=InQuantity
+        movie.InDate=InDate
+        movie.InOperator=InOperator
+        movie.ReceiveOperator=ReceiveOperator
+        movie.CurrentNode=CurrentNode
+        movie.ChipSolution=ChipSolution
+        movie.Supplement=Supplement
         db.session.commit()
         flash('Item updated.')
         return redirect(url_for('index'))
