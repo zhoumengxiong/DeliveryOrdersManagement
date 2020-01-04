@@ -15,16 +15,21 @@
     </div>
     <div class="form-group">
         <label for="ProductClass">产品型态</label>
-        <select class="form-control form-control-sm" name="ProductClass" id="ProductClass" required
-            value="{{movie.ProductClass}}">
-            <option>单相表</option>
-            <option>13版三相表</option>
+        <select class="form-control form-control-sm" name="ProductClass" id="ProductClass" required>
+            {% for opt in ['单相表','13版集中器','13版三相表','I型采集器','II型采集器','抄控器','09版三相表','09版集中器'] %}
+            {% if opt == movie.ProductClass %}
+            <option selected>{{opt}}</option>
+            {% else %}
+            <option>{{opt}}</option>
+            {%endif%}
+            <!--<option>13版三相表</option>
             <option>13版集中器</option>
             <option>I型采集器</option>
             <option>II型采集器</option>
             <option>抄控器</option>
             <option>09版三相表</option>
-            <option>09版集中器</option>
+            <option>09版集中器</option>-->
+            {% endfor %}
         </select>
     </div>
     <div class="form-group">
@@ -50,7 +55,14 @@
     <div class="form-group">
         <label for="CurrentNode">当前节点</label>
         <select class="form-control form-control-sm" name="CurrentNode" id="CurrentNode" required>
-            <option>备料</option>
+            {% for opt1 in ['备料','改造','升级','刻印','测试','包装','报检','入库','返工'] %}
+            {% if opt1 == movie.CurrentNode %}
+            <option selected>{{opt1}}</option>
+            {%else%}
+            <option>{{opt1}}</option>
+            {%endif%}
+            {% endfor %}
+            <!--<option>备料</option>
             <option>改造</option>
             <option>升级</option>
             <option>刻印</option>
@@ -58,21 +70,28 @@
             <option>包装</option>
             <option>报检</option>
             <option selected>入库</option>
-            <option>返工</option>
+            <option>返工</option>-->
         </select>
     </div>
     <div class="form-group">
         <label for="ChipSolution">芯片方案</label>
-        <select class="form-control form-control-sm" name="ChipSolution" id="ChipSolution" required
-            value="{{movie.ChipSolution}}">
-            <option>3105</option>
+        <select class="form-control form-control-sm" name="ChipSolution" id="ChipSolution" required>
+                {% for opt2 in ['3105','3911','STKS_CCV1.31'] %}
+                {% if opt2 == movie.ChipSolution %}
+                <option selected>{{opt2}}</option>
+                {%else%}
+                <option>{{opt2}}</option>
+                {%endif%}
+                {% endfor %}
+            <!--<option>3105</option>
             <option>3911</option>
-            <option>STKS_CCV1.31</option>
+            <option>STKS_CCV1.31</option>-->
         </select>
     </div>
     <div class="form-group">
         <label for="Supplement">补充说明</label>
-        <input type="text" class="form-control form-control-sm" id="Supplement" name="Supplement" autocomplete="off" value="{{movie.Supplement}}">
+        <input type="text" class="form-control form-control-sm" id="Supplement" name="Supplement" autocomplete="off"
+            value="{{movie.Supplement}}">
         <br>
         <button type="submit" class="btn btn-primary">提交</button>
 </form>
