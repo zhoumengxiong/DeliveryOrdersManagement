@@ -7,6 +7,9 @@ from watchlist.models import User, Wos_flask, wo_form
 from sqlalchemy import or_, and_
 import datetime
 
+# 获取当前日期
+date_today = datetime.date.today()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -37,7 +40,6 @@ def index():
         return redirect(url_for('index'))
 
     # movies = Wos_flask.query.order_by(Wos_flask.InDate.desc()).all()
-    date_today = datetime.date.today()
     page = request.args.get('page', 1, type=int)
     per_page = 20
     pagination = Wos_flask.query.order_by(
@@ -179,4 +181,4 @@ def summary_qty():
         qty_modules = sum([x.InQuantity for x in query_by_date])
         qty_orders = len(set([y.WoNumber for y in query_by_date]))
     return render_template('summary_qty.html', qty_orders=qty_orders,
-                           qty_modules=qty_modules)
+                           qty_modules=qty_modules, date_today=date_today)
