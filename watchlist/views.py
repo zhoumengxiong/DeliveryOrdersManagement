@@ -5,6 +5,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from watchlist import app, db
 from watchlist.models import User, Wos_flask, wo_form
 from sqlalchemy import or_, and_
+import datetime
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -36,13 +37,14 @@ def index():
         return redirect(url_for('index'))
 
     # movies = Wos_flask.query.order_by(Wos_flask.InDate.desc()).all()
+    date_today = datetime.date.today()
     page = request.args.get('page', 1, type=int)
     per_page = 20
     pagination = Wos_flask.query.order_by(
         Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
     form = wo_form()
-    return render_template('index.html', movies=movies, pagination=pagination, form=form)
+    return render_template('index.html', movies=movies, pagination=pagination, form=form, date_today=date_today)
 
 
 @app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
@@ -51,7 +53,7 @@ def edit(movie_id):
     movie = Wos_flask.query.get_or_404(movie_id)
 
     if request.method == 'POST':
-        WoNumber = request.form['WoNumber']
+        """WoNumber = request.form['WoNumber']
         ApprovalNumber = request.form['ApprovalNumber']
         ProductClass = request.form['ProductClass']
         InQuantity = request.form['InQuantity']
@@ -60,21 +62,31 @@ def edit(movie_id):
         ReceiveOperator = request.form['ReceiveOperator']
         CurrentNode = request.form['CurrentNode']
         ChipSolution = request.form['ChipSolution']
-        Supplement = request.form['Supplement']
+        Supplement = request.form['Supplement']"""
+        WoNumber = request.form['WoNumber']
+        ApprovalNumber = request.form.get('ApprovalNumber')
+        ProductClass = request.form.get('ProductClass')
+        InQuantity = request.form.get('InQuantity')
+        InDate = request.form.get('InDate')
+        InOperator = request.form.get('InOperator')
+        ReceiveOperator = request.form.get('ReceiveOperator')
+        CurrentNode = request.form.get('CurrentNode')
+        ChipSolution = request.form.get('ChipSolution')
+        Supplement = request.form.get('Supplement')
 
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
             flash('Invalid input.')
             return redirect(url_for('index'))
-        movie.WoNumber=WoNumber
-        movie.ApprovalNumber=ApprovalNumber
-        movie.ProductClass=ProductClass
-        movie.InQuantity=InQuantity
-        movie.InDate=InDate
-        movie.InOperator=InOperator
-        movie.ReceiveOperator=ReceiveOperator
-        movie.CurrentNode=CurrentNode
-        movie.ChipSolution=ChipSolution
-        movie.Supplement=Supplement
+        movie.WoNumber = WoNumber
+        movie.ApprovalNumber = ApprovalNumber
+        movie.ProductClass = ProductClass
+        movie.InQuantity = InQuantity
+        movie.InDate = InDate
+        movie.InOperator = InOperator
+        movie.ReceiveOperator = ReceiveOperator
+        movie.CurrentNode = CurrentNode
+        movie.ChipSolution = ChipSolution
+        movie.Supplement = Supplement
         db.session.commit()
         flash('Item updated.')
         return redirect(url_for('index'))
@@ -157,8 +169,8 @@ def search():
 @app.route('/summary_qty', methods=['GET', 'POST'])
 @login_required
 def summary_qty():
-    qty_orders=0
-    qty_modules=0
+    qty_orders = 0
+    qty_modules = 0
     if request.method == 'POST':
         start_date = str(request.form['start_date'])
         end_date = str(request.form['end_date'])
