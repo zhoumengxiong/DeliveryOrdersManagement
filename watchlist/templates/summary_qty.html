@@ -6,9 +6,11 @@
     <form method="post">
         <div class="form-group">
             <label for="start_date">开始日期：</label>
-            <input type="date" class="form-control form-control-sm" id="start_date" required name="start_date">
+            <input type="date" class="form-control form-control-sm" id="start_date" required name="start_date" required
+                value="{{date_today}}">
             <label for="end_date">截止日期：</label>
-            <input type="date" class="form-control form-control-sm" id="end_date" required name="end_date">
+            <input type="date" class="form-control form-control-sm" id="end_date" required name="end_date" required
+                value="{{date_today}}">
             <br>
             <input class="btn btn-primary" type="submit" name="submit" value="提交">
     </form>
