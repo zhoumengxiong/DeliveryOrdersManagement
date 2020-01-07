@@ -5,10 +5,6 @@ from flask_login import login_user, login_required, logout_user, current_user
 from watchlist import app, db
 from watchlist.models import User, Wos_flask, wo_form
 from sqlalchemy import or_, and_
-import datetime
-
-# 获取当前日期
-date_today = datetime.date.today()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -46,7 +42,7 @@ def index():
         Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
     form = wo_form()
-    return render_template('index.html', movies=movies, pagination=pagination, form=form, date_today=date_today)
+    return render_template('index.html', movies=movies, pagination=pagination, form=form)
 
 
 @app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
@@ -181,4 +177,4 @@ def summary_qty():
         qty_modules = sum([x.InQuantity for x in query_by_date])
         qty_orders = len(set([y.WoNumber for y in query_by_date]))
     return render_template('summary_qty.html', qty_orders=qty_orders,
-                           qty_modules=qty_modules, date_today=date_today)
+                           qty_modules=qty_modules)
