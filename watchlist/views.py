@@ -27,13 +27,16 @@ def index():
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
             flash('Invalid input.')
             return redirect(url_for('index'))
-
-        movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass, InQuantity=InQuantity, InDate=InDate,
-                          InOperator=InOperator, ReceiveOperator=ReceiveOperator, CurrentNode=CurrentNode, ChipSolution=ChipSolution, Supplement=Supplement)
-        db.session.add(movie)
-        db.session.commit()
-        flash('Item created.')
-        return redirect(url_for('index'))
+        if Wos_flask.query.filter(
+                and_(Wos_flask.WoNumber.contains(WoNumber), Wos_flask.ProductClass.contains(ProductClass), Wos_flask.ChipSolution.contains(ChipSolution))).all():
+            flash('数据库已存在该条记录，新增失败！')
+        else:
+            movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass, InQuantity=InQuantity, InDate=InDate,
+                              InOperator=InOperator, ReceiveOperator=ReceiveOperator, CurrentNode=CurrentNode, ChipSolution=ChipSolution, Supplement=Supplement)
+            db.session.add(movie)
+            db.session.commit()
+            flash('Item created.')
+            return redirect(url_for('index'))
 
     # movies = Wos_flask.query.order_by(Wos_flask.InDate.desc()).all()
     page = request.args.get('page', 1, type=int)
