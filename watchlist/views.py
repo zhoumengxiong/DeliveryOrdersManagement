@@ -28,11 +28,14 @@ def index():
             flash('Invalid input.')
             return redirect(url_for('index'))
         if Wos_flask.query.filter(
-                and_(Wos_flask.WoNumber.contains(WoNumber), Wos_flask.ProductClass.contains(ProductClass), Wos_flask.ChipSolution.contains(ChipSolution))).all():
+                and_(Wos_flask.WoNumber.contains(WoNumber), Wos_flask.ProductClass.contains(ProductClass),
+                     Wos_flask.ChipSolution.contains(ChipSolution))).all():
             flash('数据库已存在该条记录，新增失败！')
         else:
-            movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass, InQuantity=InQuantity, InDate=InDate,
-                              InOperator=InOperator, ReceiveOperator=ReceiveOperator, CurrentNode=CurrentNode, ChipSolution=ChipSolution, Supplement=Supplement)
+            movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass,
+                              InQuantity=InQuantity, InDate=InDate,
+                              InOperator=InOperator, ReceiveOperator=ReceiveOperator, CurrentNode=CurrentNode,
+                              ChipSolution=ChipSolution, Supplement=Supplement)
             db.session.add(movie)
             db.session.commit()
             flash('Item created.')
@@ -162,7 +165,8 @@ def search():
     qu = request.args.get('q').strip()
     """pagination = Wos_flask.query.whooshee_search(qu).paginate(page, per_page=per_page)"""
     pagination = Wos_flask.query.filter(
-        or_(Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(qu), Wos_flask.InDate.contains(qu))).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
+        or_(Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(qu),
+            Wos_flask.InDate.contains(qu))).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
     return render_template('search.html', movies=movies, pagination=pagination, keyword=qu)
 
