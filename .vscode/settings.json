@@ -1,0 +1,5 @@
+{
+    "terminal.integrated.cursorStyle": "line",
+    "editor.cursorSmoothCaretAnimation": true,
+    "python.pythonPath": "d:\\MyProjects\\watchlist\\env\\Scripts\\python.exe"
+}
