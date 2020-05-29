@@ -10,7 +10,7 @@ from flask_whooshee import Whooshee
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:Dream123$@localhost:3306/raw_data"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['WHOOSHEE_MIN_STRING_LEN'] = 1
 
