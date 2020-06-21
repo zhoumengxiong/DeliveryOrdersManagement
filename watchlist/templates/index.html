@@ -101,7 +101,7 @@
 </div>
 <div>
     <table class="table table-sm table-hover">
-        <thead class="thead-light">
+        <thead>
             <tr>
                 <th>派工单号</th>
                 <th>审批编号</th>
@@ -114,7 +114,7 @@
                 <th>芯片方案</th>
                 <th>补充说明</th>
                 {% if current_user.is_authenticated %}
-                <th></th>
+                <th>操作</th>
                 {% endif %}
             </tr>
         </thead>
