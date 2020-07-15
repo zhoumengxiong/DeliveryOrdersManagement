@@ -2,16 +2,20 @@
 
 {% block content %}
 <h5>统计</h5>
-<div class="form-group">
-    <form method="post">
-        <label for="start_date">开始日期：</label>
+<br>
+<form method="post">
+    <div class="form-group">
+        <label for="start_date">开始日期</label>
         <input type="date" class="form-control form-control-sm" id="start_date" required name="start_date">
-        <label for="end_date">截止日期：</label>
+    </div>
+    <div class="form-group">
+        <label for="end_date">截止日期</label>
         <input type="date" class="form-control form-control-sm" id="end_date" required name="end_date">
-        <br>
+    </div>
+    <div class="form-group">
         <input class="btn btn-primary" type="submit" name="submit" value="提交">
-    </form>
-</div>
+    </div>
+</form>
 <br>
 <p><strong>完成订单数：</strong>{{ qty_orders }}</p>
 <p><strong>完成设备数：</strong>{{ qty_modules }}</p>
