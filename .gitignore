@@ -8,5 +8,5 @@ htmlcov/
 .coverage
 .idea/
 .vscode/
-env/
+venv/
 .gitignore
