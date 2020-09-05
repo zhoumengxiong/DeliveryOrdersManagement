@@ -1,113 +1,115 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!--<p>{{ movies|length }} Records</p>-->
-    <!--{% from 'bootstrap/form.html' import render_field %}
-{% if current_user.is_authenticated %}
-<div>
-    <form method="post" class="form-group">
-        {{ render_field(form.WoNumber) }}
-        {{ render_field(form.ApprovalNumber) }}
-        {{ render_field(form.ProductClass) }}
-        {{ render_field(form.InQuantity) }}
-        {{ render_field(form.InDate) }}
-        {{ render_field(form.InOperator) }}
-        {{ render_field(form.ReceiveOperator) }}
-        {{ render_field(form.CurrentNode) }}
-        {{ render_field(form.ChipSolution) }}
-        {{ render_field(form.Supplement) }}
-        {{ render_field(form.Add) }}
-    </form>
-</div>
-{% endif %}-->
     {% if current_user.is_authenticated %}
+        <h5 class="mb-3">录入工单</h5>
         <form method="post">
-            <div class="form-group">
-                <label for="WoNumber">派工单号</label>
-                <input type="text" class="form-control form-control-sm"
-                       placeholder="X2020开头" id="WoNumber" name="WoNumber"
-                       autocomplete="off"
-                       required>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="WoNumber">派工单号</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="X2020开头" id="WoNumber"
+                               name="WoNumber" autocomplete="off" required>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="ApprovalNumber">审批编号</label>
+                        <input type="text" class="form-control form-control-sm" id="ApprovalNumber"
+                               name="ApprovalNumber" required
+                               placeholder="输入审批编号后6位" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="ProductClass">产品型态</label>
+                        <select class="form-control form-control-sm" name="ProductClass" id="ProductClass" required>
+                            <option>单相表</option>
+                            <option>13版三相表</option>
+                            <option>13版集中器</option>
+                            <option>I型采集器</option>
+                            <option>II型采集器</option>
+                            <option>抄控器</option>
+                            <option>09版三相表</option>
+                            <option>09版集中器</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="InQuantity">产出数量</label>
+                        <input type="number" class="form-control form-control-sm" placeholder="对应派工单需求数量"
+                               id="InQuantity"
+                               name="InQuantity" autocomplete="off" required>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="ApprovalNumber">审批编号</label>
-                <input type="text" class="form-control form-control-sm" id="ApprovalNumber" name="ApprovalNumber"
-                       required
-                       placeholder="输入审批编号后6位" autocomplete="off">
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="InDate">入库日期</label>
+                        <input type="date" class="form-control form-control-sm" id="InDate" name="InDate"
+                               autocomplete="off"
+                               required>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="InOperator">入库员工</label>
+                        <input type="text" class="form-control form-control-sm" id="InOperator" name="InOperator"
+                               autocomplete="off"
+                               required value="李金华">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="ReceiveOperator">接收员工</label>
+                        <input type="text" class="form-control form-control-sm" id="ReceiveOperator"
+                               name="ReceiveOperator"
+                               autocomplete="off" required value="健仕达">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="CurrentNode">当前节点</label>
+                        <select class="form-control form-control-sm" name="CurrentNode" id="CurrentNode" required>
+                            <option>备料</option>
+                            <option>改造</option>
+                            <option>升级</option>
+                            <option>刻印</option>
+                            <option>测试</option>
+                            <option>包装</option>
+                            <option>报检</option>
+                            <option selected>入库</option>
+                            <option>返工</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="ProductClass">产品型态</label>
-                <select class="form-control form-control-sm" name="ProductClass" id="ProductClass" required>
-                    <option>单相表</option>
-                    <option>13版三相表</option>
-                    <option>13版集中器</option>
-                    <option>I型采集器</option>
-                    <option>II型采集器</option>
-                    <option>抄控器</option>
-                    <option>09版三相表</option>
-                    <option>09版集中器</option>
-                </select>
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="ChipSolution">芯片方案</label>
+                        <select class="form-control form-control-sm" name="ChipSolution" id="ChipSolution" required>
+                            <option>3105</option>
+                            <option>3911</option>
+                            <option>STKS_CCV1.31</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="Supplement">补充说明</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="根据实际情况选填"
+                               id="Supplement"
+                               name="Supplement" autocomplete="off">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="InQuantity">产出数量</label>
-                <input type="number" class="form-control form-control-sm" placeholder="对应派工单需求数量" id="InQuantity"
-                       name="InQuantity" autocomplete="off"
-                       required>
-            </div>
-            <div class="form-group">
-                <label for="InDate">入库日期</label>
-                <input type="date" class="form-control form-control-sm" id="InDate" name="InDate" autocomplete="off"
-                       required>
-            </div>
-            <div class="form-group">
-                <label for="InOperator">入库员工</label>
-                <input type="text" class="form-control form-control-sm" id="InOperator" name="InOperator"
-                       autocomplete="off"
-                       required value="李金华">
-            </div>
-            <div class="form-group">
-                <label for="ReceiveOperator">接收员工</label>
-                <input type="text" class="form-control form-control-sm" id="ReceiveOperator" name="ReceiveOperator"
-                       autocomplete="off" required value="健仕达">
-            </div>
-            <div class="form-group">
-                <label for="CurrentNode">当前节点</label>
-                <select class="form-control form-control-sm" name="CurrentNode" id="CurrentNode" required>
-                    <option>备料</option>
-                    <option>改造</option>
-                    <option>升级</option>
-                    <option>刻印</option>
-                    <option>测试</option>
-                    <option>包装</option>
-                    <option>报检</option>
-                    <option selected>入库</option>
-                    <option>返工</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="ChipSolution">芯片方案</label>
-                <select class="form-control form-control-sm" name="ChipSolution" id="ChipSolution" required>
-                    <option>3105</option>
-                    <option>3911</option>
-                    <option>STKS_CCV1.31</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="Supplement">补充说明</label>
-                <input type="text" class="form-control form-control-sm" placeholder="根据实际情况选填" id="Supplement"
-                       name="Supplement" autocomplete="off">
-                <br>
-                <button type="submit" class="btn btn-primary">新增</button>
-            </div>
+            <button type="submit" class="btn btn-primary mb-2">新增</button>
         </form>
     {% endif %}
-    <div class="query">
-        <form class="form-inline" action="{{ url_for('search') }}" method="GET">
-            <input type="text" name="q" class="form-control" placeholder="日期|工单号|审批单号" required> &nbsp;&nbsp;&nbsp;<button
-                class="btn btn-primary" type="submit">查找
-        </button>
-        </form>
-    </div>
     <div>
         <table class="table table-sm table-hover">
             <thead>
@@ -141,8 +143,7 @@
                     <td>{{ movie.ChipSolution }}</td>
                     <td>{{ movie.Supplement }}</td>
                     {% if current_user.is_authenticated %}
-                        <td><a class="btn btn-success btn-sm"
-                               href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a>
+                        <td><a class="btn btn-success btn-sm" href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a>
 
                             <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.Id) }}">
                                 <input type="submit" class="btn btn-danger btn-sm" name="delete" value="删除"
@@ -155,22 +156,6 @@
             </tbody>
         </table>
     </div>
-
-    <!--<ul class="movie-list">
-    {% for movie in movies %}
-    <li>{{ movie.WoNumber }} {{ movie.ApprovalNumber }} {{movie.ProductClass}} {{movie.InQuantity}} {{movie.InDate}}
-        {{movie.InOperator}} {{movie.ReceiveOperator}} {{movie.CurrentNode}} {{movie.ChipSolution}} {{movie.Supplement}}
-        <span class="float-right">
-            {% if current_user.is_authenticated %}
-            <a class="btn" href="{{ url_for('edit', movie_id=movie.Id) }}">Edit</a>
-            <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.Id) }}">
-                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
-            </form>
-            {% endif %}
-        </span>
-    </li>
-    {% endfor %}
-</ul>-->
     {% from 'bootstrap/pagination.html' import render_pagination %}
     {% if movies %}
         <div>{{ render_pagination(pagination=pagination,align='center') }}</div>
@@ -182,4 +167,12 @@
             defaultDate[i].valueAsDate = new Date();
         }
     </script>
+{% endblock %}
+{% block footer_content %}
+    {{ super() }}
+    {% if current_user.is_authenticated %}
+        <span class="float-right">
+    <a href="#" title="返回顶部">返回顶部</a>
+</span>
+    {% endif %}
 {% endblock %}
