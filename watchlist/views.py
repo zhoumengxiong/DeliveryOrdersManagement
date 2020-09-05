@@ -13,16 +13,16 @@ def index():
         if not current_user.is_authenticated:
             return redirect(url_for('index'))
 
-        WoNumber = request.form['WoNumber']
-        ApprovalNumber = request.form['ApprovalNumber']
+        WoNumber = request.form['WoNumber'].strip().upper()
+        ApprovalNumber = request.form['ApprovalNumber'].strip()
         ProductClass = request.form['ProductClass']
         InQuantity = request.form['InQuantity']
         InDate = request.form['InDate']
-        InOperator = request.form['InOperator']
-        ReceiveOperator = request.form['ReceiveOperator']
+        InOperator = request.form['InOperator'].strip()
+        ReceiveOperator = request.form['ReceiveOperator'].strip()
         CurrentNode = request.form['CurrentNode']
         ChipSolution = request.form['ChipSolution']
-        Supplement = request.form['Supplement']
+        Supplement = request.form['Supplement'].strip()
 
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
             flash('Invalid input.')
@@ -67,16 +67,16 @@ def edit(movie_id):
         CurrentNode = request.form['CurrentNode']
         ChipSolution = request.form['ChipSolution']
         Supplement = request.form['Supplement']"""
-        WoNumber = request.form['WoNumber']
-        ApprovalNumber = request.form.get('ApprovalNumber')
+        WoNumber = request.form['WoNumber'].strip().upper()
+        ApprovalNumber = request.form.get('ApprovalNumber').strip()
         ProductClass = request.form.get('ProductClass')
         InQuantity = request.form.get('InQuantity')
         InDate = request.form.get('InDate')
-        InOperator = request.form.get('InOperator')
-        ReceiveOperator = request.form.get('ReceiveOperator')
+        InOperator = request.form.get('InOperator').strip()
+        ReceiveOperator = request.form.get('ReceiveOperator').strip()
         CurrentNode = request.form.get('CurrentNode')
         ChipSolution = request.form.get('ChipSolution')
-        Supplement = request.form.get('Supplement')
+        Supplement = request.form.get('Supplement').strip()
 
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
             flash('Invalid input.')
