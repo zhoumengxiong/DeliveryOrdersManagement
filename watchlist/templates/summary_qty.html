@@ -1,25 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h5>统计</h5>
-    <br>
+    <h5 class="mb-3">统计</h5>
     <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <div class="form-group">
-            <label for="start_date">开始日期</label>
-            <input type="date" class="form-control form-control-sm" id="start_date" required name="start_date">
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <div class="form-group">
+                    <label for="start_date">开始日期</label>
+                    <input type="date" class="form-control form-control-sm" id="start_date" required name="start_date">
+                </div>
+            </div>
+            <div class="col-md-3 mb-2">
+                <div class="form-group">
+                    <label for="end_date">截止日期</label>
+                    <input type="date" class="form-control form-control-sm" id="end_date" required name="end_date">
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="end_date">截止日期</label>
-            <input type="date" class="form-control form-control-sm" id="end_date" required name="end_date">
-        </div>
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" name="submit" value="提交">
-        </div>
+        <button type="submit" class="btn btn-primary mb-2">查询</button>
     </form>
-    <br>
-    <p><strong>完成订单数：</strong>{{ qty_orders }}</p>
-    <p><strong>完成设备数：</strong>{{ qty_modules }}</p>
+    <div class="mt-5" style="font-size: larger">
+        <div class="lead my-3 vertical_line">完成订单数：{{ qty_orders }}</div>
+        <div class="lead my-3 vertical_line">完成设备数：{{ qty_modules }}</div>
+    </div>
     <script>
         var defaultDate = document.querySelectorAll('#start_date');
         for (var i = 0; i < defaultDate.length; i++) {
