@@ -43,7 +43,7 @@ def index():
 
     # movies = Wos_flask.query.order_by(Wos_flask.InDate.desc()).all()
     page = request.args.get('page', 1, type=int)
-    per_page = 20
+    per_page = 15
     pagination = Wos_flask.query.order_by(
         Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
@@ -95,7 +95,7 @@ def edit(movie_id):
         flash('Item updated.')
         return redirect(url_for('index'))
 
-    return render_template('edit.html', movie=movie)
+    return render_template('edit.html', movie=movie, title="修改")
 
 
 @app.route('/movie/delete/<int:movie_id>', methods=['POST'])
@@ -124,7 +124,7 @@ def settings():
         flash('Settings updated.')
         return redirect(url_for('index'))
 
-    return render_template('settings.html')
+    return render_template('settings.html', title="设置用户名")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -147,7 +147,7 @@ def login():
         flash('Invalid username or password.')
         return redirect(url_for('login'))
 
-    return render_template('login.html')
+    return render_template('login.html', title="登录")
 
 
 @app.route('/logout')
@@ -168,7 +168,7 @@ def search():
         or_(Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(qu),
             Wos_flask.InDate.contains(qu))).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
-    return render_template('search.html', movies=movies, pagination=pagination, keyword=qu)
+    return render_template('search.html', movies=movies, pagination=pagination, keyword=qu, title="查询")
 
 
 @app.route('/summary_qty', methods=['GET', 'POST'])
@@ -184,4 +184,4 @@ def summary_qty():
         qty_modules = sum([x.InQuantity for x in query_by_date])
         qty_orders = len(set([y.WoNumber for y in query_by_date]))
     return render_template('summary_qty.html', qty_orders=qty_orders,
-                           qty_modules=qty_modules)
+                           qty_modules=qty_modules, title="统计")
