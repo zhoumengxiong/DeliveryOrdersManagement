@@ -3,7 +3,8 @@ from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user, current_user
 
 from . import app, db
-from .models import User, Wos_flask, wo_form
+from .models import User, Wos_flask
+from .forms import OrderForm
 from sqlalchemy import or_, and_
 
 
@@ -47,7 +48,7 @@ def index():
     pagination = Wos_flask.query.order_by(
         Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
     movies = pagination.items
-    form = wo_form()
+    form = OrderForm()
     return render_template('index.html', movies=movies, pagination=pagination, form=form)
 
 
