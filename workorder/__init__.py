@@ -42,5 +42,5 @@ def inject_user():
     return dict(user=user)
 
 
-# from watchlist import views, errors, commands只能放在最后一行
+# from workorder import views, errors, commands只能放在最后一行
 from . import views, errors, commands
