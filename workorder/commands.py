@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import click
 
-from watchlist import app, db
-from watchlist.models import User
+from . import app, db
+from .models import User
 
 
 @app.cli.command()

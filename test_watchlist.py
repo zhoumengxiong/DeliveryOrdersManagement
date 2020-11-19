@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from watchlist import app, db
-from watchlist.models import Movie, User
-from watchlist.commands import forge, initdb
+from workorder import app, db
+from workorder.models import Movie, User
+from workorder.commands import forge, initdb
 
 
-class WatchlistTestCase(unittest.TestCase):
+class WorkorderTestCase(unittest.TestCase):
 
     def setUp(self):
         app.config.update(
@@ -50,7 +50,7 @@ class WatchlistTestCase(unittest.TestCase):
     def test_index_page(self):
         response = self.client.get('/')
         data = response.get_data(as_text=True)
-        self.assertIn('Test\'s Watchlist', data)
+        self.assertIn('Test\'s Workorder', data)
         self.assertIn('Test Movie Title', data)
         self.assertEqual(response.status_code, 200)
 

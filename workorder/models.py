@@ -3,8 +3,8 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import DateField, IntegerField, SelectField, StringField, SubmitField, Form
 from wtforms.validators import DataRequired, InputRequired
-from watchlist import db
-from watchlist import whooshee
+from . import db
+from . import whooshee
 
 
 class User(db.Model, UserMixin):

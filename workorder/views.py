@@ -2,8 +2,8 @@
 from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user, current_user
 
-from watchlist import app, db
-from watchlist.models import User, Wos_flask, wo_form
+from . import app, db
+from .models import User, Wos_flask, wo_form
 from sqlalchemy import or_, and_
 
 
