@@ -26,12 +26,12 @@ def index():
         Supplement = request.form['Supplement'].strip()
 
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
-            flash('Invalid input.')
+            flash('Invalid input.', 'warning')
             return redirect(url_for('index'))
         if Wos_flask.query.filter(
                 and_(Wos_flask.WoNumber.contains(WoNumber), Wos_flask.ProductClass.contains(ProductClass),
                      Wos_flask.ChipSolution.contains(ChipSolution))).all():
-            flash('数据库已存在该条记录，新增失败！')
+            flash('数据库已存在该条记录，新增失败！', 'warning')
         else:
             movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass,
                               InQuantity=InQuantity, InDate=InDate,
@@ -39,7 +39,7 @@ def index():
                               ChipSolution=ChipSolution, Supplement=Supplement)
             db.session.add(movie)
             db.session.commit()
-            flash('Item created.')
+            flash('Item created.', 'info')
             return redirect(url_for('index'))
 
     # movies = Wos_flask.query.order_by(Wos_flask.InDate.desc()).all()
@@ -80,7 +80,7 @@ def edit(movie_id):
         Supplement = request.form.get('Supplement').strip()
 
         if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
-            flash('Invalid input.')
+            flash('Invalid input.', 'warning')
             return redirect(url_for('index'))
         movie.WoNumber = WoNumber
         movie.ApprovalNumber = ApprovalNumber
@@ -93,7 +93,7 @@ def edit(movie_id):
         movie.ChipSolution = ChipSolution
         movie.Supplement = Supplement
         db.session.commit()
-        flash('Item updated.')
+        flash('Item updated.', 'info')
         return redirect(url_for('index'))
 
     return render_template('edit.html', movie=movie, title="修改")
@@ -105,7 +105,7 @@ def delete(movie_id):
     movie = Wos_flask.query.get_or_404(movie_id)
     db.session.delete(movie)
     db.session.commit()
-    flash('Item deleted.')
+    flash('Item deleted.', 'info')
     return redirect(url_for('index'))
 
 
@@ -116,13 +116,13 @@ def settings():
         name = request.form['name']
 
         if not name or len(name) > 20:
-            flash('Invalid input.')
+            flash('Invalid input.', 'warning')
             return redirect(url_for('settings'))
 
         user = User.query.first()
         user.name = name
         db.session.commit()
-        flash('Settings updated.')
+        flash('Settings updated.', 'info')
         return redirect(url_for('index'))
 
     return render_template('settings.html', title="设置用户名")
@@ -135,17 +135,17 @@ def login():
         password = request.form['password']
 
         if not username or not password:
-            flash('Invalid input.')
+            flash('Invalid input.', 'warning')
             return redirect(url_for('login'))
 
         user = User.query.first()
 
         if username == user.username and user.validate_password(password):
             login_user(user)
-            flash('Login success.')
+            flash('Login success.' ,'info')
             return redirect(url_for('index'))
 
-        flash('Invalid username or password.')
+        flash('Invalid username or password.', 'warning')
         return redirect(url_for('login'))
 
     return render_template('login.html', title="登录")
@@ -155,7 +155,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('Goodbye.')
+    flash('Goodbye.', 'info')
     return redirect(url_for('index'))
 
 
