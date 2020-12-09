@@ -1,56 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="margin-bottom: 10px;"><a href="{{ url_for('index') }}">&larr; 返回</a></div>
-<h5>"{{keyword}}"的搜索结果:</h5>
-<div>
-    <table class="table table-sm table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>派工单号</th>
-                <th>审批编号</th>
-                <th>产品形态</th>
-                <th>产出数量</th>
-                <th>入库日期</th>
-                <th>入库员工</th>
-                <th>接收员工</th>
-                <th>当前节点</th>
-                <th>芯片方案</th>
-                <th>补充说明</th>
-                {% if current_user.is_authenticated %}
-                <th>操作</th>
-                {% endif %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for movie in movies %}
-            <tr>
-                <td>{{ movie.WoNumber }}</td>
-                <td>{{ movie.ApprovalNumber }}</td>
-                <td>{{ movie.ProductClass }}</td>
-                <td>{{ movie.InQuantity }}</td>
-                <td>{{ movie.InDate }}</td>
-                <td>{{ movie.InOperator }}</td>
-                <td>{{ movie.ReceiveOperator }}</td>
-                <td>{{ movie.CurrentNode }}</td>
-                <td>{{ movie.ChipSolution }}</td>
-                <td>{{ movie.Supplement }}</td>
-                {% if current_user.is_authenticated %}
-                <td><a class="btn btn-success btn-sm"
-                            href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a>
-                            <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.Id) }}">
-                                <input type="submit" class="btn btn-danger btn-sm" name="delete" value="删除"
-                                    onclick="return confirm('你确认删除吗?')">
-                            </form>
-                </td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% from 'bootstrap/pagination.html' import render_pagination %}
-{% if movies %}
-<div>{{ render_pagination(pagination=pagination,align='center')}}</div>
-{% endif %}
+    <div style="margin-bottom: 10px;"><a href="{{ url_for('index') }}">&larr; 返回</a></div>
+    <h5>"{{ keyword }}"的搜索结果:</h5>
+    {% if movies %}
+        <div>
+            <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th>派工单号</th>
+                    <th>审批编号</th>
+                    <th>产品形态</th>
+                    <th>产出数量</th>
+                    <th>入库日期</th>
+                    <th>入库员工</th>
+                    <th>接收员工</th>
+                    <th>当前节点</th>
+                    <th>芯片方案</th>
+                    <th>补充说明</th>
+                    {% if current_user.is_authenticated %}
+                        <th>操作</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ movie.WoNumber }}</td>
+                        <td>{{ movie.ApprovalNumber }}</td>
+                        <td>{{ movie.ProductClass }}</td>
+                        <td>{{ movie.InQuantity }}</td>
+                        <td>{{ movie.InDate }}</td>
+                        <td>{{ movie.InOperator }}</td>
+                        <td>{{ movie.ReceiveOperator }}</td>
+                        <td>{{ movie.CurrentNode }}</td>
+                        <td>{{ movie.ChipSolution }}</td>
+                        <td>{{ movie.Supplement }}</td>
+                        {% if current_user.is_authenticated %}
+                            <td><a class="btn btn-success btn-sm"
+                                   href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a>
+                                <form class="inline-form" method="post"
+                                      action="{{ url_for('delete', movie_id=movie.Id) }}">
+                                    <input type="submit" class="btn btn-danger btn-sm" name="delete" value="删除"
+                                           onclick="return confirm('你确认删除吗?')">
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% from 'bootstrap/pagination.html' import render_pagination %}
+        <div>{{ render_pagination(pagination=pagination,align='center') }}</div>
+    {% else %}
+        <h2>未查询到满足搜索条件的记录！</h2>
+    {% endif %}
 {% endblock %}
