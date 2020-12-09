@@ -171,7 +171,7 @@ def search():
     movies = pagination.items
     if not movies:
         flash('未有满足该搜索条件的记录！', 'danger')
-        redirect(url_for('index'))
+        return redirect(url_for('index'))
     return render_template('search.html', movies=movies, pagination=pagination, keyword=qu, title="查询")
 
 
