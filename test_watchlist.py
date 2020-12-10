@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+    :author: Dream Zhou (周梦雄)
+    :url: https://heypython.cn
+    :copyright: © 2020 Dream Zhou <zhoumengxiong@outlook.com>
+    :license: MIT, see LICENSE for more details.
+"""
 import unittest
 
 from workorder import app, db
@@ -6,7 +12,7 @@ from workorder.models import Movie, User
 from workorder.commands import forge, initdb
 
 
-class WorkorderTestCase(unittest.TestCase):
+class WorkOrderTestCase(unittest.TestCase):
 
     def setUp(self):
         app.config.update(

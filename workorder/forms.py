@@ -1,15 +1,23 @@
-from wtforms import DateField, IntegerField, SelectField, StringField, SubmitField, Form
+# -*- coding: utf-8 -*-
+"""
+    :author: Dream Zhou (周梦雄)
+    :url: https://heypython.cn
+    :copyright: © 2020 Dream Zhou <zhoumengxiong@outlook.com>
+    :license: MIT, see LICENSE for more details.
+"""
+from flask_wtf import FlaskForm
+from wtforms import DateField, IntegerField, SelectField, StringField, SubmitField
 from wtforms.validators import DataRequired, InputRequired
 
 
-class OrderForm(Form):
-    WoNumber = StringField("派工单号：", validators=[DataRequired(), InputRequired()])
+class OrderForm(FlaskForm):
+    order_number = StringField("派工单号：", validators=[DataRequired(), InputRequired()])
     ApprovalNumber = StringField(
         "审批编号：",
         validators=[DataRequired(), InputRequired()],
         render_kw={"placeholder": "审批编号后6位"},
     )
-    ProductClass = SelectField(
+    product_category = SelectField(
         "产品型态：",
         choices=[
             ("单相表", "单相表"),
@@ -23,11 +31,11 @@ class OrderForm(Form):
         ],
         validators=[DataRequired(), InputRequired()],
     )
-    InQuantity = IntegerField("产出数量：", validators=[DataRequired(), InputRequired()])
-    InDate = DateField("入库日期：", validators=[DataRequired(), InputRequired()])
-    InOperator = StringField("入库员工：", validators=[DataRequired(), InputRequired()])
-    ReceiveOperator = StringField("接收员工：", validators=[DataRequired(), InputRequired()])
-    CurrentNode = SelectField(
+    in_quantity = IntegerField("产出数量：", validators=[DataRequired(), InputRequired()])
+    in_date = DateField("入库日期：", validators=[DataRequired(), InputRequired()])
+    in_operator = StringField("入库员工：", validators=[DataRequired(), InputRequired()])
+    receive_operator = StringField("接收员工：", validators=[DataRequired(), InputRequired()])
+    current_node = SelectField(
         "当前节点：",
         choices=[
             ("备料", "备料"),
@@ -42,10 +50,10 @@ class OrderForm(Form):
         ],
         validators=[DataRequired(), InputRequired()],
     )
-    ChipSolution = SelectField(
+    chip_solution = SelectField(
         "芯片方案：",
         choices=[("3105", "3105"), ("3911", "3911"), ("STKS_CCV1.31", "STKS_CCV1.31")],
         validators=[DataRequired(), InputRequired()],
     )
-    Supplement = StringField("补充说明：", validators=[DataRequired(), InputRequired()])
-    Add = SubmitField("新增")
+    comment = StringField("补充说明：", validators=[DataRequired(), InputRequired()])
+    add = SubmitField("新增")

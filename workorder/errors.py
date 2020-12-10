@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+    :author: Dream Zhou (周梦雄)
+    :url: https://heypython.cn
+    :copyright: © 2020 Dream Zhou <zhoumengxiong@outlook.com>
+    :license: MIT, see LICENSE for more details.
+"""
 from flask import render_template
 
 from . import app

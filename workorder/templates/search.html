@@ -23,23 +23,23 @@
             </tr>
             </thead>
             <tbody>
-            {% for movie in movies %}
+            {% for order in orders %}
                 <tr>
-                    <td>{{ movie.WoNumber }}</td>
-                    <td>{{ movie.ApprovalNumber }}</td>
-                    <td>{{ movie.ProductClass }}</td>
-                    <td>{{ movie.InQuantity }}</td>
-                    <td>{{ movie.InDate }}</td>
-                    <td>{{ movie.InOperator }}</td>
-                    <td>{{ movie.ReceiveOperator }}</td>
-                    <td>{{ movie.CurrentNode }}</td>
-                    <td>{{ movie.ChipSolution }}</td>
-                    <td>{{ movie.Supplement }}</td>
+                    <td>{{ order.order_number }}</td>
+                    <td>{{ order.approval_number }}</td>
+                    <td>{{ order.product_category }}</td>
+                    <td>{{ order.in_quantity }}</td>
+                    <td>{{ order.in_date }}</td>
+                    <td>{{ order.in_operator }}</td>
+                    <td>{{ order.receive_operator }}</td>
+                    <td>{{ order.current_node }}</td>
+                    <td>{{ order.chip_solution }}</td>
+                    <td>{{ order.comment }}</td>
                     {% if current_user.is_authenticated %}
                         <td><a class="btn btn-success btn-sm"
-                               href="{{ url_for('edit', movie_id=movie.Id) }}">修改</a>
+                               href="{{ url_for('edit', order_id=order.Id) }}">修改</a>
                             <form class="inline-form" method="post"
-                                  action="{{ url_for('delete', movie_id=movie.Id) }}">
+                                  action="{{ url_for('delete', order_id=order.Id) }}">
                                 <input type="submit" class="btn btn-danger btn-sm" name="delete" value="删除"
                                        onclick="return confirm('你确认删除吗?')">
                             </form>

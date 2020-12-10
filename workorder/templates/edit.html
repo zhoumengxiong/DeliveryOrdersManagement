@@ -7,26 +7,26 @@
         <div class="row">
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="WoNumber">派工单号</label>
-                    <input type="text" class="form-control form-control-sm" id="WoNumber" name="WoNumber"
+                    <label for="order_number">派工单号</label>
+                    <input type="text" class="form-control form-control-sm" id="order_number" name="order_number"
                            autocomplete="off"
-                           required value="{{ movie.WoNumber }}">
+                           required value="{{ order.order_number }}">
                 </div>
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="ApprovalNumber">审批编号</label>
-                    <input type="text" class="form-control form-control-sm" id="ApprovalNumber" name="ApprovalNumber"
+                    <label for="approval_number">审批编号</label>
+                    <input type="text" class="form-control form-control-sm" id="approval_number" name="approval_number"
                            required
-                           autocomplete="off" value="{{ movie.ApprovalNumber }}">
+                           autocomplete="off" value="{{ order.approval_number }}">
                 </div>
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="ProductClass">产品型态</label>
-                    <select class="form-control form-control-sm" name="ProductClass" id="ProductClass" required>
+                    <label for="product_category">产品型态</label>
+                    <select class="form-control form-control-sm" name="product_category" id="product_category" required>
                         {% for opt in ['单相表','13版集中器','13版三相表','I型采集器','II型采集器','抄控器','09版三相表','09版集中器'] %}
-                            {% if opt == movie.ProductClass %}
+                            {% if opt == order.product_category %}
                                 <option selected>{{ opt }}</option>
                             {% else %}
                                 <option>{{ opt }}</option>
@@ -37,43 +37,43 @@
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="InQuantity">产出数量</label>
-                    <input type="number" class="form-control form-control-sm" id="InQuantity" name="InQuantity"
+                    <label for="in_quantity">产出数量</label>
+                    <input type="number" class="form-control form-control-sm" id="in_quantity" name="in_quantity"
                            autocomplete="off"
-                           required value="{{ movie.InQuantity }}">
+                           required value="{{ order.in_quantity }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="InDate">入库日期</label>
-                    <input type="date" class="form-control form-control-sm" id="InDate" name="InDate" autocomplete="off"
+                    <label for="in_date">入库日期</label>
+                    <input type="date" class="form-control form-control-sm" id="in_date" name="in_date" autocomplete="off"
                            required
-                           value="{{ movie.InDate }}">
+                           value="{{ order.in_date }}">
                 </div>
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="InOperator">入库员工</label>
-                    <input type="text" class="form-control form-control-sm" id="InOperator" name="InOperator"
+                    <label for="in_operator">入库员工</label>
+                    <input type="text" class="form-control form-control-sm" id="in_operator" name="in_operator"
                            autocomplete="off"
-                           required value="{{ movie.InOperator }}">
+                           required value="{{ order.in_operator }}">
                 </div>
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="ReceiveOperator">接收员工</label>
-                    <input type="text" class="form-control form-control-sm" id="ReceiveOperator" name="ReceiveOperator"
-                           autocomplete="off" required value="{{ movie.ReceiveOperator }}">
+                    <label for="receive_operator">接收员工</label>
+                    <input type="text" class="form-control form-control-sm" id="receive_operator" name="receive_operator"
+                           autocomplete="off" required value="{{ order.receive_operator }}">
                 </div>
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="CurrentNode">当前节点</label>
-                    <select class="form-control form-control-sm" name="CurrentNode" id="CurrentNode" required>
+                    <label for="current_node">当前节点</label>
+                    <select class="form-control form-control-sm" name="current_node" id="current_node" required>
                         {% for opt1 in ['备料','改造','升级','刻印','测试','包装','报检','入库','返工'] %}
-                            {% if opt1 == movie.CurrentNode %}
+                            {% if opt1 == order.current_node %}
                                 <option selected>{{ opt1 }}</option>
                             {% else %}
                                 <option>{{ opt1 }}</option>
@@ -86,10 +86,10 @@
         <div class="row">
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="ChipSolution">芯片方案</label>
-                    <select class="form-control form-control-sm" name="ChipSolution" id="ChipSolution" required>
+                    <label for="chip_solution">芯片方案</label>
+                    <select class="form-control form-control-sm" name="chip_solution" id="chip_solution" required>
                         {% for opt2 in ['3105','3911','STKS_CCV1.31'] %}
-                            {% if opt2 == movie.ChipSolution %}
+                            {% if opt2 == order.chip_solution %}
                                 <option selected>{{ opt2 }}</option>
                             {% else %}
                                 <option>{{ opt2 }}</option>
@@ -100,10 +100,10 @@
             </div>
             <div class="col-md-3 mb-2">
                 <div class="form-group">
-                    <label for="Supplement">补充说明</label>
-                    <input type="text" class="form-control form-control-sm" id="Supplement" name="Supplement"
+                    <label for="comment">补充说明</label>
+                    <input type="text" class="form-control form-control-sm" id="comment" name="comment"
                            autocomplete="off"
-                           value="{{ movie.Supplement }}">
+                           value="{{ order.comment }}">
                 </div>
             </div>
         </div>

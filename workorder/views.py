@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+    :author: Dream Zhou (周梦雄)
+    :url: https://heypython.cn
+    :copyright: © 2020 Dream Zhou <zhoumengxiong@outlook.com>
+    :license: MIT, see LICENSE for more details.
+"""
 from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user, current_user
 
 from . import app, db
-from .models import User, Wos_flask
+from .models import User, OrderModel
 from .forms import OrderForm
 from sqlalchemy import or_, and_
 
@@ -14,96 +20,90 @@ def index():
         if not current_user.is_authenticated:
             return redirect(url_for('index'))
 
-        WoNumber = request.form['WoNumber'].strip().upper()
-        ApprovalNumber = request.form['ApprovalNumber'].strip()
-        ProductClass = request.form['ProductClass']
-        InQuantity = request.form['InQuantity']
-        InDate = request.form['InDate']
-        InOperator = request.form['InOperator'].strip()
-        ReceiveOperator = request.form['ReceiveOperator'].strip()
-        CurrentNode = request.form['CurrentNode']
-        ChipSolution = request.form['ChipSolution']
-        Supplement = request.form['Supplement'].strip()
+        order_number = request.form['order_number'].strip().upper()
+        approval_number = request.form['approval_number'].strip()
+        product_category = request.form['product_category']
+        in_quantity = request.form['in_quantity']
+        in_date = request.form['in_date']
+        in_operator = request.form['in_operator'].strip()
+        receive_operator = request.form['receive_operator'].strip()
+        current_node = request.form['current_node']
+        chip_solution = request.form['chip_solution']
+        comment = request.form['comment'].strip()
 
-        if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
+        if not order_number or not product_category or not in_quantity or not in_date or not current_node or \
+                not chip_solution:
             flash('Invalid input.', 'warning')
             return redirect(url_for('index'))
-        if Wos_flask.query.filter(
-                and_(Wos_flask.WoNumber.contains(WoNumber), Wos_flask.ProductClass.contains(ProductClass),
-                     Wos_flask.ChipSolution.contains(ChipSolution))).all():
+        if OrderModel.query.filter(
+                and_(OrderModel.order_number.contains(order_number),
+                     OrderModel.product_category.contains(product_category),
+                     OrderModel.chip_solution.contains(chip_solution))).all():
             flash('数据库已存在该条记录，新增失败！', 'warning')
         else:
-            movie = Wos_flask(WoNumber=WoNumber, ApprovalNumber=ApprovalNumber, ProductClass=ProductClass,
-                              InQuantity=InQuantity, InDate=InDate,
-                              InOperator=InOperator, ReceiveOperator=ReceiveOperator, CurrentNode=CurrentNode,
-                              ChipSolution=ChipSolution, Supplement=Supplement)
-            db.session.add(movie)
+            order = OrderModel(order_number=order_number, approval_number=approval_number,
+                               product_category=product_category,
+                               in_quantity=in_quantity, in_date=in_date,
+                               in_operator=in_operator, receive_operator=receive_operator, current_node=current_node,
+                               chip_solution=chip_solution, comment=comment)
+            db.session.add(order)
             db.session.commit()
             flash('Item created.', 'info')
             return redirect(url_for('index'))
 
-    # movies = Wos_flask.query.order_by(Wos_flask.InDate.desc()).all()
+    # orders = OrderModel.query.order_by(OrderModel.in_date.desc()).all()
     page = request.args.get('page', 1, type=int)
     per_page = 15
-    pagination = Wos_flask.query.order_by(
-        Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
-    movies = pagination.items
+    pagination = OrderModel.query.order_by(
+        OrderModel.in_date.desc()).paginate(page, per_page=per_page)
+    orders = pagination.items
     form = OrderForm()
-    return render_template('index.html', movies=movies, pagination=pagination, form=form)
+    return render_template('index.html', orders=orders, pagination=pagination, form=form)
 
 
-@app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
+@app.route('/order/edit/<int:order_id>', methods=['GET', 'POST'])
 @login_required
-def edit(movie_id):
-    movie = Wos_flask.query.get_or_404(movie_id)
+def edit(order_id):
+    order = OrderModel.query.get_or_404(order_id)
 
     if request.method == 'POST':
-        """WoNumber = request.form['WoNumber']
-        ApprovalNumber = request.form['ApprovalNumber']
-        ProductClass = request.form['ProductClass']
-        InQuantity = request.form['InQuantity']
-        InDate = request.form['InDate']
-        InOperator = request.form['InOperator']
-        ReceiveOperator = request.form['ReceiveOperator']
-        CurrentNode = request.form['CurrentNode']
-        ChipSolution = request.form['ChipSolution']
-        Supplement = request.form['Supplement']"""
-        WoNumber = request.form['WoNumber'].strip().upper()
-        ApprovalNumber = request.form.get('ApprovalNumber').strip()
-        ProductClass = request.form.get('ProductClass')
-        InQuantity = request.form.get('InQuantity')
-        InDate = request.form.get('InDate')
-        InOperator = request.form.get('InOperator').strip()
-        ReceiveOperator = request.form.get('ReceiveOperator').strip()
-        CurrentNode = request.form.get('CurrentNode')
-        ChipSolution = request.form.get('ChipSolution')
-        Supplement = request.form.get('Supplement').strip()
+        order_number = request.form['order_number'].strip().upper()
+        approval_number = request.form.get('approval_number').strip()
+        product_category = request.form.get('product_category')
+        in_quantity = request.form.get('in_quantity')
+        in_date = request.form.get('in_date')
+        in_operator = request.form.get('in_operator').strip()
+        receive_operator = request.form.get('receive_operator').strip()
+        current_node = request.form.get('current_node')
+        chip_solution = request.form.get('chip_solution')
+        comment = request.form.get('comment').strip()
 
-        if not WoNumber or not ProductClass or not InQuantity or not InDate or not CurrentNode or not ChipSolution:
+        if not order_number or not product_category or not in_quantity or not in_date or not current_node or not \
+                chip_solution:
             flash('Invalid input.', 'warning')
             return redirect(url_for('index'))
-        movie.WoNumber = WoNumber
-        movie.ApprovalNumber = ApprovalNumber
-        movie.ProductClass = ProductClass
-        movie.InQuantity = InQuantity
-        movie.InDate = InDate
-        movie.InOperator = InOperator
-        movie.ReceiveOperator = ReceiveOperator
-        movie.CurrentNode = CurrentNode
-        movie.ChipSolution = ChipSolution
-        movie.Supplement = Supplement
+        order.order_number = order_number
+        order.approval_number = approval_number
+        order.product_category = product_category
+        order.in_quantity = in_quantity
+        order.in_date = in_date
+        order.in_operator = in_operator
+        order.receive_operator = receive_operator
+        order.current_node = current_node
+        order.chip_solution = chip_solution
+        order.comment = comment
         db.session.commit()
         flash('Item updated.', 'info')
         return redirect(url_for('index'))
 
-    return render_template('edit.html', movie=movie, title="修改")
+    return render_template('edit.html', order=order, title="修改")
 
 
-@app.route('/movie/delete/<int:movie_id>', methods=['POST'])
+@app.route('/order/delete/<int:order_id>', methods=['POST'])
 @login_required
-def delete(movie_id):
-    movie = Wos_flask.query.get_or_404(movie_id)
-    db.session.delete(movie)
+def delete(order_id):
+    order = OrderModel.query.get_or_404(order_id)
+    db.session.delete(order)
     db.session.commit()
     flash('Item deleted.', 'info')
     return redirect(url_for('index'))
@@ -142,7 +142,7 @@ def login():
 
         if username == user.username and user.validate_password(password):
             login_user(user)
-            flash('Login success.' ,'info')
+            flash('Login success.', 'info')
             return redirect(url_for('index'))
 
         flash('Invalid username or password.', 'warning')
@@ -164,15 +164,15 @@ def search():
     page = request.args.get('page', 1, type=int)
     per_page = 20
     qu = request.args.get('q').strip()
-    # pagination = Wos_flask.query.whooshee_search(qu).paginate(page, per_page=per_page)
-    pagination = Wos_flask.query.filter(
-        or_(Wos_flask.WoNumber.contains(qu), Wos_flask.ApprovalNumber.contains(qu),
-            Wos_flask.InDate.contains(qu))).order_by(Wos_flask.InDate.desc()).paginate(page, per_page=per_page)
-    movies = pagination.items
-    if not movies:
+    # pagination = OrderModel.query.whooshee_search(qu).paginate(page, per_page=per_page)
+    pagination = OrderModel.query.filter(
+        or_(OrderModel.order_number.contains(qu), OrderModel.approval_number.contains(qu),
+            OrderModel.in_date.contains(qu))).order_by(OrderModel.in_date.desc()).paginate(page, per_page=per_page)
+    orders = pagination.items
+    if not orders:
         flash('未有满足该搜索条件的记录！', 'danger')
         return redirect(url_for('index'))
-    return render_template('search.html', movies=movies, pagination=pagination, keyword=qu, title="查询")
+    return render_template('search.html', orders=orders, pagination=pagination, keyword=qu, title="查询")
 
 
 @app.route('/summary_qty', methods=['GET', 'POST'])
@@ -183,9 +183,9 @@ def summary_qty():
     if request.method == 'POST':
         start_date = str(request.form['start_date'])
         end_date = str(request.form['end_date'])
-        query_by_date = Wos_flask.query.filter(
-            and_(Wos_flask.InDate >= start_date, Wos_flask.InDate <= end_date)).all()
-        qty_modules = sum([x.InQuantity for x in query_by_date])
-        qty_orders = len(set([y.WoNumber for y in query_by_date]))
+        query_by_date = OrderModel.query.filter(
+            and_(OrderModel.in_date >= start_date, OrderModel.in_date <= end_date)).all()
+        qty_modules = sum([x.in_quantity for x in query_by_date])
+        qty_orders = len(set([y.order_number for y in query_by_date]))
     return render_template('summary_qty.html', qty_orders=qty_orders,
                            qty_modules=qty_modules, title="统计")

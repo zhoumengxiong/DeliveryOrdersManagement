@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+    :author: Dream Zhou (周梦雄)
+    :url: https://heypython.cn
+    :copyright: © 2020 Dream Zhou <zhoumengxiong@outlook.com>
+    :license: MIT, see LICENSE for more details.
+"""
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -18,17 +24,17 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
-@whooshee.register_model('WoNumber', 'ApprovalNumber', 'InDate','CurrentNode')
-class Wos_flask(db.Model):
+@whooshee.register_model('order_number', 'approval_number', 'in_date', 'current_node')
+class OrderModel(db.Model):
     __tablename__ = 'wos_flask'
-    Id = db.Column(db.Integer, primary_key=True)
-    WoNumber = db.Column(db.String(15), nullable=False)
-    ApprovalNumber = db.Column(db.String(12))
-    ProductClass = db.Column(db.String(20), nullable=False)
-    InQuantity = db.Column(db.Integer, nullable=False)
-    InDate = db.Column(db.Date, nullable=False)
-    InOperator = db.Column(db.String(10), nullable=False)
-    ReceiveOperator = db.Column(db.String(10), nullable=False)
-    CurrentNode = db.Column(db.String(10), nullable=False)
-    ChipSolution = db.Column(db.String(20), nullable=False)
-    Supplement = db.Column(db.String(255))
+    id = db.Column(db.Integer, primary_key=True)
+    order_number = db.Column(db.String(15), nullable=False)
+    approval_number = db.Column(db.String(12))
+    product_category = db.Column(db.String(20), nullable=False)
+    in_quantity = db.Column(db.Integer, nullable=False)
+    in_date = db.Column(db.Date, nullable=False)
+    in_operator = db.Column(db.String(10), nullable=False)
+    receive_operator = db.Column(db.String(10), nullable=False)
+    current_node = db.Column(db.String(10), nullable=False)
+    chip_solution = db.Column(db.String(20), nullable=False)
+    comment = db.Column(db.String(255))
