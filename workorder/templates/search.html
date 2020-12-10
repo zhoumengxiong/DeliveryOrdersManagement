@@ -37,9 +37,9 @@
                     <td>{{ order.comment }}</td>
                     {% if current_user.is_authenticated %}
                         <td><a class="btn btn-success btn-sm"
-                               href="{{ url_for('edit', order_id=order.Id) }}">修改</a>
+                               href="{{ url_for('edit', order_id=order.id) }}">修改</a>
                             <form class="inline-form" method="post"
-                                  action="{{ url_for('delete', order_id=order.Id) }}">
+                                  action="{{ url_for('delete', order_id=order.id) }}">
                                 <input type="submit" class="btn btn-danger btn-sm" name="delete" value="删除"
                                        onclick="return confirm('你确认删除吗?')">
                             </form>
