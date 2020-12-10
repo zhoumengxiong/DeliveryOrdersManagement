@@ -11,7 +11,9 @@
             <title>国网送检订单交付管理系统</title>
         {% endif %}
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        {{ bootstrap.load_css() }}
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+              type="text/css">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
     {% endblock %}
 </head>
