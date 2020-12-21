@@ -20,6 +20,8 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['WHOOSHEE_MIN_STRING_LEN'] = 1
+# pythonanywhere部署时需要设置该值
+app.config['SQLALCHEMY_POOL_RECYLE'] = 280
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
